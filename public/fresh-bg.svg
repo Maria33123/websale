@@ -1,0 +1,18 @@
+<svg width="1920" height="1200" viewBox="0 0 1920 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1920" height="1200" fill="#F8FCF8"/>
+  <path d="M0 829C177 731 314 709 477 762C650 818 779 840 964 768C1147 697 1279 691 1446 757C1606 821 1751 811 1920 728V1200H0V829Z" fill="#DCEFE7"/>
+  <path d="M0 928C209 832 380 840 581 894C769 944 934 972 1143 900C1342 831 1532 842 1920 966V1200H0V928Z" fill="#CFE9E5"/>
+  <path d="M0 258C150 140 329 105 476 174C602 233 703 248 840 182C998 106 1150 113 1306 192C1489 285 1655 230 1920 112V0H0V258Z" fill="#EAF7FB"/>
+  <circle cx="204" cy="279" r="175" fill="#FFE6D8" fill-opacity=".78"/>
+  <circle cx="1568" cy="257" r="235" fill="#DDF4FF" fill-opacity=".88"/>
+  <circle cx="1445" cy="900" r="255" fill="#E2F6D8" fill-opacity=".65"/>
+  <path d="M120 735C277 661 429 640 597 699C764 758 915 749 1067 689C1244 619 1417 637 1600 705C1711 746 1815 751 1920 718" stroke="#FFFFFF" stroke-width="36" stroke-linecap="round" stroke-opacity=".48"/>
+  <path d="M0 1110C238 1010 436 1020 650 1078C853 1133 1056 1139 1265 1060C1487 976 1684 1014 1920 1100" stroke="#FFFFFF" stroke-width="54" stroke-linecap="round" stroke-opacity=".45"/>
+  <g opacity=".38">
+    <circle cx="325" cy="548" r="3" fill="#8CD7C5"/>
+    <circle cx="426" cy="500" r="2" fill="#F5BE74"/>
+    <circle cx="1530" cy="524" r="3" fill="#8CD7C5"/>
+    <circle cx="1632" cy="468" r="2" fill="#F6A8BC"/>
+    <circle cx="1220" cy="348" r="2" fill="#62B5F6"/>
+  </g>
+</svg>
