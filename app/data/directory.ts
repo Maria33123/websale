@@ -1,6 +1,207 @@
-export type RiskLevel = "low" | "medium" | "high";
+/**
+ * 商品内容数据文件
+ *
+ * 以后你主要改这里。
+ *
+ * 页面卡片只显示三块：
+ * 1. name：商品名称
+ * 2. availability：库存状态
+ * 3. description：简短描述
+ *
+ * details：点击“查看详情”后，弹窗里显示的商品详情介绍。
+ * 现在 details 已经改成一整段字符串，不再是数组。
+ *
+ * 新增商品：
+ * 复制 products 里面任意一个商品对象，然后修改内容。
+ *
+ * 删除商品：
+ * 删除 products 里面对应的整个商品对象。
+ */
 
 export type Availability = "in-stock" | "limited" | "out-of-stock";
+
+export type RiskLevel = "low" | "medium" | "high";
+
+export type ProductCategory = {
+  slug: "chatgpt" | "claude" | "gemini" | "grok";
+  name: string;
+  shortName: string;
+  symbol: string;
+  accent: string;
+};
+
+export type Product = {
+  /**
+   * 商品唯一 ID，不能重复。
+   * 新增商品时复制一整段，然后改 id。
+   */
+  id: string;
+
+  /**
+   * 用于左侧栏分类。
+   * 可选：chatgpt / claude / gemini / grok
+   *
+   * 注意：这个字段只是为了左侧分类，不会显示在商品卡片上。
+   */
+  categorySlug: ProductCategory["slug"];
+
+  /**
+   * 第一块：商品名称
+   */
+  name: string;
+
+  /**
+   * 第二块：库存状态
+   *
+   * in-stock：有货
+   * limited：库存有限
+   * out-of-stock：暂时缺货
+   */
+  availability: Availability;
+
+  /**
+   * 第三块：简短描述
+   *
+   * 例如：
+   * description: "Plus 共享席位 · 美国基准",
+   */
+  description: string;
+
+  /**
+   * 弹窗里的商品详情介绍。
+   *
+   * 如果是一整段，直接这样写：
+   * details: "这里填写一整段商品详情。",
+   *
+   * 如果需要换行，推荐这样写：
+   * details: `第一行说明。
+   * 第二行说明。
+   * 第三行说明。`,
+   */
+  details: string;
+};
+
+/**
+ * 左侧栏分类
+ *
+ * 想改左侧栏显示名称，就改 name。
+ */
+export const productCategories: ProductCategory[] = [
+  {
+    slug: "chatgpt",
+    name: "ChatGPT",
+    shortName: "ChatGPT",
+    symbol: "CG",
+    accent: "#55cdb1",
+  },
+  {
+    slug: "claude",
+    name: "Claude",
+    shortName: "Claude",
+    symbol: "CL",
+    accent: "#a68cf0",
+  },
+  {
+    slug: "gemini",
+    name: "Gemini",
+    shortName: "Gemini",
+    symbol: "GM",
+    accent: "#62b5f6",
+  },
+  {
+    slug: "grok",
+    name: "Grok",
+    shortName: "Grok",
+    symbol: "GX",
+    accent: "#f2a94f",
+  },
+];
+
+/**
+ * 商品列表
+ *
+ * 页面卡片只显示：
+ * name + availability + description
+ *
+ * 弹窗详情显示：
+ * details
+ */
+export const products: Product[] = [
+  {
+    id: "chatgpt-plus-001",
+    categorySlug: "chatgpt",
+    name: "ChatGPT Plus",
+    availability: "in-stock",
+    description: "GPT RT Plus 成品号 每日限量特价（欧洲渠道）",
+    details: `GPT Plus成品号 微软Hotmail邮箱登录 可直接获得原始邮箱（附自建快捷接码平台）
+
+可下载sub2/cpa格式json（带rt+已绑手机号验证）
+兑换地址：https://chongzhi.art/
+
+注意事项：账号为一号一绑 欧洲渠道，该商品无质保，无质保，无质保，请谨慎购买
+非日抛号 但也请您做好备份
+请尽快用完剩余额度 当半周抛使用 会话数据及时保存备份，谢谢
+`,
+  },
+
+  {
+    id: "chatgpt-team-001",
+    categorySlug: "chatgpt",
+    name: "ChatGPT Team",
+    availability: "in-stock",
+    description: "成品 只能反代使用 保证首登，k12渠道（含RT｜CPA+sub2api）",
+    details: `实时测活验证的ChatGpt team帐号（含 refresh_token）
+发货格式：CPA JSON + sub2api 导入 JSON，下载即用，
+质保10分钟内首登
+`,
+  },
+
+  {
+    id: "claude-001",
+    categorySlug: "claude",
+    name: "Claude",
+    availability: "out-of-stock",
+    description: "暂时无货 · 后续补充",
+    details: "Claude 商品暂时无货，后续补充。",
+  },
+
+  {
+    id: "gemini-001",
+    categorySlug: "gemini",
+    name: "Gemini",
+    availability: "out-of-stock",
+    description: "暂时无货 · 后续补充",
+    details: "Gemini 商品暂时无货，后续补充。",
+  },
+
+  {
+    id: "grok-001",
+    categorySlug: "grok",
+    name: "Grok",
+    availability: "out-of-stock",
+    description: "暂时无货 · 后续补充",
+    details: "Grok 商品暂时无货，后续补充。",
+  },
+];
+
+export function getProductsForCategory(categorySlug: ProductCategory["slug"]) {
+  return products.filter((product) => product.categorySlug === categorySlug);
+}
+
+export function getAvailabilityLabel(availability: Availability) {
+  const labels: Record<Availability, string> = {
+    "in-stock": "有货",
+    limited: "库存有限",
+    "out-of-stock": "暂时缺货",
+  };
+
+  return labels[availability];
+}
+
+/**
+ * 下面是为了兼容项目里旧组件的类型和函数。
+ * 你以后不用改下面这些。
+ */
 
 export type AiTool = {
   slug: string;
@@ -71,387 +272,58 @@ export type FaqItem = {
   answer: string;
 };
 
-export const aiTools: AiTool[] = [
-  {
-    slug: "chatgpt",
-    name: "ChatGPT",
-    shortName: "ChatGPT",
-    symbol: "CG",
-    accent: "#55cdb1",
-    summary:
-      "Compare ChatGPT Plus, Pro, and Team subscription paths across official pricing and vetted sharing platforms.",
-    officialPrice: "Plus $20/mo, Pro $200/mo",
-    officialUrl: "https://chatgpt.com/",
-    bestFor: ["Writing", "Coding", "Office workflows", "Multimodal tasks"],
-    cautions: [
-      "Shared seats may have usage contention.",
-      "Regional pricing can change without notice.",
-      "Very low prices should be checked against refund terms.",
-    ],
-  },
-  {
-    slug: "claude",
-    name: "Claude",
-    shortName: "Claude",
-    symbol: "CL",
-    accent: "#a68cf0",
-    summary:
-      "Track Claude Pro and Max alternatives for long-context work, research writing, and code review.",
-    officialPrice: "Pro $20/mo, Max from $100/mo",
-    officialUrl: "https://claude.ai/",
-    bestFor: ["Long context", "Code review", "Research writing", "Knowledge work"],
-    cautions: [
-      "Availability varies by region.",
-      "Higher-tier plans can swing heavily in price.",
-      "Review collaboration and seat-sharing rules first.",
-    ],
-  },
-  {
-    slug: "gemini",
-    name: "Gemini",
-    shortName: "Gemini",
-    symbol: "GM",
-    accent: "#62b5f6",
-    summary:
-      "Compare Gemini Advanced and Google ecosystem bundles for research, study, and document workflows.",
-    officialPrice: "Advanced from $19.99/mo",
-    officialUrl: "https://gemini.google.com/",
-    bestFor: ["Google Workspace", "Study notes", "Long-document summaries", "Sheets"],
-    cautions: [
-      "Some benefits are tied to Google One.",
-      "Regional taxes can change the final price.",
-      "Confirm family or seat restrictions before subscribing.",
-    ],
-  },
-  {
-    slug: "grok",
-    name: "Grok",
-    shortName: "Grok",
-    symbol: "GX",
-    accent: "#f2a94f",
-    summary:
-      "Monitor Grok and X Premium bundle pricing for trend monitoring, social context, and opinion drafting.",
-    officialPrice: "Premium / Premium+ varies by region",
-    officialUrl: "https://x.ai/",
-    bestFor: ["Trend tracking", "Social context", "Opinion drafts", "Live discussion"],
-    cautions: [
-      "Benefits are often tied to X subscriptions.",
-      "Regional app-store pricing may differ from web pricing.",
-      "Check access boundaries before joining a shared plan.",
-    ],
-  },
-];
+export const aiTools: AiTool[] = productCategories.map((category) => ({
+  slug: category.slug,
+  name: category.name,
+  shortName: category.shortName,
+  symbol: category.symbol,
+  accent: category.accent,
+  summary: "",
+  officialPrice: "",
+  officialUrl: "#",
+  bestFor: [],
+  cautions: [],
+}));
 
 export const platforms: Platform[] = [
   {
-    slug: "gamsgo",
-    name: "GamsGo",
-    homepageUrl: "https://www.gamsgo.com/",
-    sourceUrl: "https://www.gamsgo.com/",
-    summary:
-      "A subscription-sharing marketplace used as one tracked source for monthly AI tool access prices and seat availability.",
-    feeModel: "Marketplace price plus possible service fee",
+    slug: "telegram",
+    name: "Telegram",
+    homepageUrl: "https://telegram.me/coreychen111",
+    sourceUrl: "https://telegram.me/coreychen111",
+    summary: "通过 Telegram 联系客服购买。",
+    feeModel: "联系客服确认",
     riskLevel: "medium",
-    rules: [
-      "Check whether the seat is shared or dedicated.",
-      "Review the refund window before subscribing.",
-      "Prefer listings with clear support and replacement rules.",
-    ],
+    rules: ["购买前请确认商品详情、使用规则和售后政策。"],
     accent: "#55cdb1",
   },
-  {
-    slug: "spliiit",
-    name: "Spliiit",
-    homepageUrl: "https://www.spliiit.com/",
-    sourceUrl: "https://www.spliiit.com/",
-    summary:
-      "A subscription split marketplace tracked for shared plan fees, platform protection, and recurring-seat rules.",
-    feeModel: "Shared subscription price plus platform fee",
-    riskLevel: "medium",
-    rules: [
-      "Check whether the seat is stable long term.",
-      "Include platform fees when comparing prices.",
-      "Confirm region, household, and seat restrictions.",
-    ],
-    accent: "#62b5f6",
-  },
-  {
-    slug: "official",
-    name: "Official",
-    homepageUrl: "#",
-    sourceUrl: "#",
-    summary:
-      "Official pricing is used as a benchmark so readers can understand real savings and trade-offs.",
-    feeModel: "Official list price",
-    riskLevel: "low",
-    rules: [
-      "Most predictable access and support.",
-      "Usually more expensive than shared options.",
-      "Best baseline for calculating real discounts.",
-    ],
-    accent: "#8b98a8",
-  },
 ];
 
-export const priceOffers: PriceOffer[] = [
-  {
-    id: "chatgpt-plus-gamsgo-us",
-    toolSlug: "chatgpt",
-    platformSlug: "gamsgo",
-    normalizedProduct: "ChatGPT Plus",
-    planName: "Plus shared seat",
-    countrySlug: "united-states",
-    countryName: "United States",
-    regionLabel: "US baseline",
-    priceMonthlyUsd: 8.9,
-    priceLabel: "$8.90/mo",
-    billingNote: "Sample tracked marketplace price",
-    availability: "in-stock",
-    riskLevel: "medium",
-    updatedAt: "2026-06-14",
-    tags: ["lowest", "shared", "plus"],
-  },
-  {
-    id: "chatgpt-plus-spliiit-fr",
-    toolSlug: "chatgpt",
-    platformSlug: "spliiit",
-    normalizedProduct: "ChatGPT Plus",
-    planName: "Plus split subscription",
-    countrySlug: "france",
-    countryName: "France",
-    regionLabel: "EU split",
-    priceMonthlyUsd: 10.4,
-    priceLabel: "$10.40/mo",
-    billingNote: "Estimated with platform fee",
-    availability: "limited",
-    riskLevel: "medium",
-    updatedAt: "2026-06-14",
-    tags: ["eu", "shared", "plus"],
-  },
-  {
-    id: "chatgpt-plus-official-us",
-    toolSlug: "chatgpt",
-    platformSlug: "official",
-    normalizedProduct: "ChatGPT Plus",
-    planName: "Official Plus",
-    countrySlug: "united-states",
-    countryName: "United States",
-    regionLabel: "Official benchmark",
-    priceMonthlyUsd: 20,
-    priceLabel: "$20/mo",
-    billingNote: "Verify final billing terms on the official source",
-    availability: "in-stock",
-    riskLevel: "low",
-    updatedAt: "2026-06-14",
-    tags: ["official", "baseline"],
-  },
-  {
-    id: "claude-pro-spliiit-us",
-    toolSlug: "claude",
-    platformSlug: "spliiit",
-    normalizedProduct: "Claude Pro",
-    planName: "Pro shared seat",
-    countrySlug: "united-states",
-    countryName: "United States",
-    regionLabel: "US split",
-    priceMonthlyUsd: 9.8,
-    priceLabel: "$9.80/mo",
-    billingNote: "Sample tracked marketplace price",
-    availability: "in-stock",
-    riskLevel: "medium",
-    updatedAt: "2026-06-14",
-    tags: ["pro", "shared"],
-  },
-  {
-    id: "claude-max-gamsgo-us",
-    toolSlug: "claude",
-    platformSlug: "gamsgo",
-    normalizedProduct: "Claude Max",
-    planName: "Max shared seat",
-    countrySlug: "united-states",
-    countryName: "United States",
-    regionLabel: "US split",
-    priceMonthlyUsd: 34.5,
-    priceLabel: "$34.50/mo",
-    billingNote: "Higher-tier plan, availability changes quickly",
-    availability: "limited",
-    riskLevel: "high",
-    updatedAt: "2026-06-14",
-    tags: ["max", "limited"],
-  },
-  {
-    id: "gemini-advanced-gamsgo-us",
-    toolSlug: "gemini",
-    platformSlug: "gamsgo",
-    normalizedProduct: "Gemini Advanced",
-    planName: "Advanced shared seat",
-    countrySlug: "united-states",
-    countryName: "United States",
-    regionLabel: "US split",
-    priceMonthlyUsd: 7.5,
-    priceLabel: "$7.50/mo",
-    billingNote: "Sample tracked marketplace price",
-    availability: "in-stock",
-    riskLevel: "medium",
-    updatedAt: "2026-06-14",
-    tags: ["advanced", "google"],
-  },
-  {
-    id: "gemini-advanced-official-us",
-    toolSlug: "gemini",
-    platformSlug: "official",
-    normalizedProduct: "Gemini Advanced",
-    planName: "Official Advanced",
-    countrySlug: "united-states",
-    countryName: "United States",
-    regionLabel: "Official benchmark",
-    priceMonthlyUsd: 19.99,
-    priceLabel: "$19.99/mo",
-    billingNote: "Taxes and bundle terms may vary",
-    availability: "in-stock",
-    riskLevel: "low",
-    updatedAt: "2026-06-14",
-    tags: ["official", "baseline"],
-  },
-  {
-    id: "grok-premium-gamsgo-us",
-    toolSlug: "grok",
-    platformSlug: "gamsgo",
-    normalizedProduct: "Grok Premium",
-    planName: "Premium shared seat",
-    countrySlug: "united-states",
-    countryName: "United States",
-    regionLabel: "X ecosystem",
-    priceMonthlyUsd: 6.9,
-    priceLabel: "$6.90/mo",
-    billingNote: "Sample tracked marketplace price",
-    availability: "in-stock",
-    riskLevel: "medium",
-    updatedAt: "2026-06-14",
-    tags: ["x", "premium"],
-  },
-  {
-    id: "grok-premium-spliiit-eu",
-    toolSlug: "grok",
-    platformSlug: "spliiit",
-    normalizedProduct: "Grok Premium",
-    planName: "Premium split subscription",
-    countrySlug: "germany",
-    countryName: "Germany",
-    regionLabel: "EU split",
-    priceMonthlyUsd: 8.3,
-    priceLabel: "$8.30/mo",
-    billingNote: "Sample tracked marketplace price",
-    availability: "out-of-stock",
-    riskLevel: "medium",
-    updatedAt: "2026-06-14",
-    tags: ["out-of-stock", "x"],
-  },
-];
+export const priceOffers: PriceOffer[] = products.map((product) => ({
+  id: product.id,
+  toolSlug: product.categorySlug,
+  platformSlug: "telegram",
+  normalizedProduct: product.name,
+  planName: product.description,
+  countrySlug: "",
+  countryName: "",
+  regionLabel: product.description,
+  priceMonthlyUsd: 0,
+  priceLabel: "",
+  billingNote: product.details,
+  availability: product.availability,
+  riskLevel: "medium",
+  updatedAt: "",
+  tags: [],
+}));
 
-export const countryPricePages: CountryPricePage[] = [
-  {
-    slug: "turkey",
-    countryName: "Turkey",
-    currency: "TRY",
-    summary:
-      "A long-tail price page for readers comparing official regional pricing, billing taxes, and subscription-sharing risks.",
-  },
-  {
-    slug: "india",
-    countryName: "India",
-    currency: "INR",
-    summary:
-      "A regional benchmark page for AI subscription prices across Gemini, ChatGPT, Claude, and shared-access marketplaces.",
-  },
-  {
-    slug: "united-states",
-    countryName: "United States",
-    currency: "USD",
-    summary:
-      "The baseline page for calculating discounts against official USD pricing and marketplace subscription splits.",
-  },
-];
+export const countryPricePages: CountryPricePage[] = [];
 
-export const blogPosts: BlogPost[] = [
-  {
-    slug: "ai-subscription-fatigue-2026",
-    title: "AI Subscription Fatigue 2026: How to Reduce Tool Overlap",
-    description:
-      "A practical guide to cutting redundant AI subscriptions while keeping the tools that matter.",
-    category: "Buyer guide",
-    readTime: "6 min",
-  },
-  {
-    slug: "shared-ai-subscription-risks",
-    title: "7 Checks Before Joining a Shared AI Subscription",
-    description:
-      "A risk checklist covering seats, refunds, access boundaries, privacy, and support terms.",
-    category: "Risk checklist",
-    readTime: "5 min",
-  },
-];
+export const blogPosts: BlogPost[] = [];
 
-export const seoLinks: SeoLink[] = [
-  {
-    href: "/tools/chatgpt",
-    label: "ChatGPT price guide",
-    description: "Official ChatGPT plan prices, shared-seat options, and risk notes.",
-  },
-  {
-    href: "/tools/chatgpt/price/turkey",
-    label: "ChatGPT price in Turkey",
-    description: "Regional pricing, billing caveats, and source verification notes.",
-  },
-  {
-    href: "/tools/chatgpt/compare/plus-vs-pro",
-    label: "ChatGPT Plus vs Pro",
-    description: "Compare plan limits, price differences, and who should upgrade.",
-  },
-  {
-    href: "/platforms/gamsgo",
-    label: "GamsGo review",
-    description: "Platform rules, refund checks, and AI subscription availability.",
-  },
-  {
-    href: "/platforms/spliiit",
-    label: "Spliiit review",
-    description: "Shared subscription fees, seat rules, and buyer protections.",
-  },
-  {
-    href: "/blog/ai-subscription-fatigue-2026",
-    label: "AI subscription fatigue 2026",
-    description: "A guide to reducing duplicate AI subscriptions without losing coverage.",
-  },
-];
+export const seoLinks: SeoLink[] = [];
 
-export const faqItems: FaqItem[] = [
-  {
-    question: "What is the cheapest way to get ChatGPT Plus?",
-    answer:
-      "The cheapest tracked option is usually a shared-seat marketplace listing, but the lowest usable price should also factor in availability, refund terms, seat rules, and platform risk.",
-  },
-  {
-    question: "Does PriceAI process subscriptions or payments?",
-    answer:
-      "No. PriceAI is a content and comparison site. It does not process payments, provide subscription fulfillment, or store customer orders. Source buttons send readers to external platforms or official sites for verification.",
-  },
-  {
-    question: "What does lowest usable price mean?",
-    answer:
-      "Lowest usable price means the lowest tracked monthly price that is currently in stock or limited stock, excluding out-of-stock listings and highlighting obvious risk notes.",
-  },
-  {
-    question: "Are shared AI subscriptions safe?",
-    answer:
-      "Shared subscriptions can be cheaper, but they carry trade-offs such as seat contention, replacement rules, platform fees, privacy boundaries, and refund limitations. Always verify terms on the destination platform.",
-  },
-  {
-    question: "Why can official AI subscription prices differ by country?",
-    answer:
-      "Official prices may vary because of taxes, app-store fees, billing currency, regional availability, and local pricing experiments. Always use the final billed price on the original source as the source of truth.",
-  },
-];
+export const faqItems: FaqItem[] = [];
 
 export function getTool(slug: string) {
   return aiTools.find((tool) => tool.slug === slug);
@@ -462,27 +334,11 @@ export function getPlatform(slug: string) {
 }
 
 export function sortOffers(offers: PriceOffer[]) {
-  const availabilityWeight: Record<Availability, number> = {
-    "in-stock": 0,
-    limited: 1,
-    "out-of-stock": 2,
-  };
-
-  return [...offers].sort((first, second) => {
-    const availabilityDelta =
-      availabilityWeight[first.availability] -
-      availabilityWeight[second.availability];
-
-    if (availabilityDelta !== 0) {
-      return availabilityDelta;
-    }
-
-    return first.priceMonthlyUsd - second.priceMonthlyUsd;
-  });
+  return offers;
 }
 
 export function getOffersForTool(toolSlug: string) {
-  return sortOffers(priceOffers.filter((offer) => offer.toolSlug === toolSlug));
+  return priceOffers.filter((offer) => offer.toolSlug === toolSlug);
 }
 
 export function getLowestAvailableOffer(toolSlug: string) {
@@ -492,25 +348,15 @@ export function getLowestAvailableOffer(toolSlug: string) {
 }
 
 export function getPlatformName(slug: string) {
-  return getPlatform(slug)?.name ?? "Unknown";
+  return getPlatform(slug)?.name ?? "未知来源";
 }
 
 export function getRiskLabel(riskLevel: RiskLevel) {
   const labels: Record<RiskLevel, string> = {
-    low: "Low risk",
-    medium: "Review terms",
-    high: "High volatility",
+    low: "低风险",
+    medium: "需核验条款",
+    high: "波动较高",
   };
 
   return labels[riskLevel];
-}
-
-export function getAvailabilityLabel(availability: Availability) {
-  const labels: Record<Availability, string> = {
-    "in-stock": "In stock",
-    limited: "Limited",
-    "out-of-stock": "Out of stock",
-  };
-
-  return labels[availability];
 }
