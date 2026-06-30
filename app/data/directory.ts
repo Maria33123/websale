@@ -20,6 +20,8 @@
 
 export type Availability = "in-stock" | "limited" | "out-of-stock";
 
+export type Language = "en" | "zh";
+
 export type RiskLevel = "low" | "medium" | "high";
 
 export type ProductCategory = {
@@ -85,7 +87,7 @@ export const productCategories: ProductCategory[] = [
  * 弹窗详情显示：
  * details
  */
-export const products: Product[] = [
+export const productsZh: Product[] = [
   {
     id: "chatgpt-plus-001",
     categorySlug: "chatgpt",
@@ -166,6 +168,75 @@ export const products: Product[] = [
   },
 ];
 
+const englishDetailsPlaceholder = `TODO: Fill English product details here.
+
+Suggested content to write here:
+1. Product description
+2. Delivery method
+3. Usage notes
+4. Validity period
+5. Warranty or after-sales policy
+6. Important purchase notes`;
+
+export const productsEn: Product[] = [
+  {
+    id: "chatgpt-plus-001",
+    categorySlug: "chatgpt",
+    name: "ChatGPT Plus",
+    availability: "in-stock",
+    description: "TODO: Fill English short description here",
+    price: "$2.5",
+    details: englishDetailsPlaceholder,
+  },
+  {
+    id: "chatgpt-team-001",
+    categorySlug: "chatgpt",
+    name: "ChatGPT Team/Business",
+    availability: "limited",
+    description: "TODO: Fill English short description here",
+    price: "$2",
+    details: englishDetailsPlaceholder,
+  },
+  {
+    id: "claude-001",
+    categorySlug: "claude",
+    name: "Claude",
+    availability: "out-of-stock",
+    description: "TODO: Fill English short description here",
+    price: "",
+    details: englishDetailsPlaceholder,
+  },
+  {
+    id: "gemini-001",
+    categorySlug: "gemini",
+    name: "Gemini Pro",
+    availability: "limited",
+    description: "TODO: Fill English short description here",
+    price: "$3",
+    details: englishDetailsPlaceholder,
+  },
+  {
+    id: "grok-001",
+    categorySlug: "grok",
+    name: "Super Grok",
+    availability: "in-stock",
+    description: "TODO: Fill English short description here",
+    price: "$12",
+    details: englishDetailsPlaceholder,
+  },
+];
+
+/**
+ * Compatibility export for old components.
+ * Keep this pointing to the Chinese product list unless those components are
+ * migrated to pass an explicit language.
+ */
+export const products: Product[] = productsZh;
+
+function getProductsForLanguage(language: Language = "zh") {
+  return language === "en" ? productsEn : productsZh;
+}
+
 function getAvailabilityWeight(availability: Availability) {
   const weights: Record<Availability, number> = {
     "in-stock": 0,
@@ -176,8 +247,11 @@ function getAvailabilityWeight(availability: Availability) {
   return weights[availability];
 }
 
-export function getProductsForCategory(categorySlug: ProductCategory["slug"]) {
-  return [...products]
+export function getProductsForCategory(
+  categorySlug: ProductCategory["slug"],
+  language: Language = "zh",
+) {
+  return [...getProductsForLanguage(language)]
     .filter((product) => product.categorySlug === categorySlug)
     .sort(
       (first, second) =>
@@ -188,8 +262,9 @@ export function getProductsForCategory(categorySlug: ProductCategory["slug"]) {
 
 export function getBestAvailabilityForCategory(
   categorySlug: ProductCategory["slug"],
+  language: Language = "zh",
 ) {
-  const categoryProducts = getProductsForCategory(categorySlug);
+  const categoryProducts = getProductsForCategory(categorySlug, language);
 
   if (categoryProducts.length === 0) {
     return "out-of-stock";
@@ -198,22 +273,32 @@ export function getBestAvailabilityForCategory(
   return categoryProducts[0].availability;
 }
 
-export function getSortedProductCategories() {
+export function getSortedProductCategories(language: Language = "zh") {
   return [...productCategories].sort(
     (first, second) =>
-      getAvailabilityWeight(getBestAvailabilityForCategory(first.slug)) -
-      getAvailabilityWeight(getBestAvailabilityForCategory(second.slug)),
+      getAvailabilityWeight(getBestAvailabilityForCategory(first.slug, language)) -
+      getAvailabilityWeight(getBestAvailabilityForCategory(second.slug, language)),
   );
 }
 
-export function getAvailabilityLabel(availability: Availability) {
-  const labels: Record<Availability, string> = {
+export function getAvailabilityLabel(
+  availability: Availability,
+  language: Language = "zh",
+) {
+  const labels: Record<Language, Record<Availability, string>> = {
+    en: {
+      "in-stock": "In stock",
+      limited: "Limited stock",
+      "out-of-stock": "Out of stock",
+    },
+    zh: {
     "in-stock": "有货",
     limited: "库存有限",
     "out-of-stock": "暂时缺货",
+    },
   };
 
-  return labels[availability];
+  return labels[language][availability];
 }
 
 /**
@@ -317,7 +402,7 @@ export const platforms: Platform[] = [
   },
 ];
 
-export const priceOffers: PriceOffer[] = products.map((product) => ({
+export const priceOffers: PriceOffer[] = productsZh.map((product) => ({
   id: product.id,
   toolSlug: product.categorySlug,
   platformSlug: "telegram",

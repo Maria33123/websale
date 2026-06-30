@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { ToolLogo } from "@/app/components/tool-logo";
@@ -79,15 +80,25 @@ function TopNoticeBox() {
     <section className="soft-card mb-10 rounded-[32px] p-8 sm:p-10">
       <div className="mx-auto max-w-5xl text-center">
         <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
-          购买前请仔细阅读
+          Please Read Before Purchase
         </h1>
 
         <p className="mx-auto mt-6 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
-          购买前请务必仔细阅读商品详情、使用说明及注意事项，并确认该商品符合你的使用需求。
+          Please read the product details, usage instructions, and important
+          notes carefully before ordering, and make sure the product fits your
+          needs.
         </p>
 
         <p className="mx-auto mt-3 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
-          未阅读介绍直接下单的，默认视为已了解并同意商品说明、使用规则及售后政策。
+          After placing an order, you are considered to have understood and
+          agreed to the product description, usage rules, and after-sales
+          policy.
+        </p>
+
+        <p className="mx-auto mt-3 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
+          Due to the nature of digital products, please contact support before
+          purchase and order only after confirming that you understand how to
+          use the product.
         </p>
       </div>
     </section>
@@ -99,7 +110,7 @@ function ProductDetailBox({ product }: { product: Product }) {
     <div className="rounded-[28px] border border-slate-200/80 bg-slate-50/70 p-6 sm:p-7">
       <div className="mb-4 flex items-center gap-2 text-base font-bold text-slate-800">
         <ShieldIcon />
-        商品详情介绍
+        Product Description
       </div>
 
       <p className="whitespace-pre-line text-sm leading-8 text-slate-600 sm:text-base sm:leading-8">
@@ -124,7 +135,7 @@ function ProductDetailModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6">
       <button
         type="button"
-        aria-label="关闭详情弹窗"
+        aria-label="Close product details"
         className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
         onClick={onClose}
       />
@@ -133,7 +144,9 @@ function ProductDetailModal({
         <div className="shrink-0 border-b border-slate-100 bg-white px-6 py-5 sm:px-8">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-bold text-[#247e70]">商品详情</p>
+              <p className="text-sm font-bold text-[#247e70]">
+                Product Details
+              </p>
 
               <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
                 {product.name}
@@ -145,7 +158,7 @@ function ProductDetailModal({
                     product,
                   )}`}
                 >
-                  {getAvailabilityLabel(product.availability)}
+                  {getAvailabilityLabel(product.availability, "en")}
                 </span>
 
                 <p className="text-sm leading-6 text-slate-500">
@@ -156,7 +169,7 @@ function ProductDetailModal({
 
             <button
               type="button"
-              aria-label="关闭"
+              aria-label="Close"
               onClick={onClose}
               className="rounded-full border border-slate-200 bg-white p-2 text-slate-500 shadow-sm transition hover:border-slate-300 hover:text-slate-900"
             >
@@ -176,7 +189,7 @@ function ProductDetailModal({
               onClick={onClose}
               className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-600 shadow-sm transition hover:border-slate-300 hover:text-slate-900"
             >
-              再看看
+              Cancel
             </button>
 
             {isOutOfStock ? (
@@ -185,7 +198,7 @@ function ProductDetailModal({
                 disabled
                 className="inline-flex cursor-not-allowed items-center justify-center rounded-full border border-slate-200 bg-slate-100 px-6 py-3 text-sm font-bold text-slate-400"
               >
-                暂时缺货
+                Out of stock
               </button>
             ) : (
               <a
@@ -194,7 +207,7 @@ function ProductDetailModal({
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#55cdb1] bg-[#247e70] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#1f6f63] hover:shadow-md"
               >
-                立即购买
+                Buy Now
                 <ArrowIcon />
               </a>
             )}
@@ -239,7 +252,7 @@ function ProductRow({
       }`}
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="min-w-0 grid gap-2 sm:grid-cols-[150px_70px_minmax(0,1fr)] sm:items-center">
+        <div className="min-w-0 grid gap-2 sm:grid-cols-[150px_120px_minmax(0,1fr)] sm:items-center">
           <h3 className="text-lg font-semibold text-slate-950">
             {product.name}
           </h3>
@@ -249,7 +262,7 @@ function ProductRow({
               product,
             )}`}
           >
-            {getAvailabilityLabel(product.availability)}
+            {getAvailabilityLabel(product.availability, "en")}
           </span>
 
           <p className="truncate text-sm leading-6 text-slate-500">
@@ -268,7 +281,7 @@ function ProductRow({
       disabled
       className="inline-flex shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-bold text-slate-400"
     >
-      暂时缺货
+      Out of stock
     </button>
   ) : (
     <button
@@ -279,7 +292,7 @@ function ProductRow({
       }}
       className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full border border-[#b9e8de] bg-white px-5 py-3 text-sm font-bold text-[#247e70] shadow-sm transition hover:-translate-y-0.5 hover:border-[#55cdb1] hover:shadow-md"
     >
-      查看详情
+      View Details
       <ArrowIcon />
     </button>
   )}
@@ -296,7 +309,7 @@ function ProductSection({
   category: ProductCategory;
   onOpen: (product: Product) => void;
 }) {
-  const categoryProducts = getProductsForCategory(category.slug);
+  const categoryProducts = getProductsForCategory(category.slug, "en");
 
   return (
     <section id={category.slug} className="scroll-mt-8">
@@ -310,7 +323,7 @@ function ProductSection({
 }
 
 export default function Home() {
-  const sortedCategories = getSortedProductCategories();
+  const sortedCategories = getSortedProductCategories("en");
 
   const [activeCategory, setActiveCategory] =
     useState<ProductCategory["slug"]>(sortedCategories[0]?.slug ?? "chatgpt");
@@ -329,12 +342,12 @@ export default function Home() {
     <main className="fresh-page min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-end">
-          <a
+          <Link
             href="/zh"
             className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-[#55cdb1] hover:text-[#247e70]"
           >
             中文
-          </a>
+          </Link>
         </div>
 
         <TopNoticeBox />
@@ -343,7 +356,7 @@ export default function Home() {
           <aside className="lg:sticky lg:top-8 lg:self-start">
             <div className="soft-glass rounded-[28px] p-4">
               <p className="mb-3 px-2 text-sm font-bold text-slate-500">
-                工具列表
+                Tools
               </p>
 
               <div className="grid gap-2">

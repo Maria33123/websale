@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title:
-    "AI Subscription Price Comparison | ChatGPT, Claude, Gemini Prices | PriceAI",
+  title: "AI Subscription Access Plans | ChatGPT, Claude, Gemini, Grok",
   description:
-    "Compare ChatGPT, Claude, Gemini, and Grok subscription prices across official plans, tracked sources, availability, and buyer-risk notes.",
+    "Compare available AI subscription access plans, product availability, prices, and purchase notes before contacting support.",
   keywords: [
     "AI subscription price comparison",
     "ChatGPT Plus price comparison",
@@ -16,9 +15,9 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "AI Subscription Price Comparison | ChatGPT, Claude, Gemini Prices | PriceAI",
+      "AI Subscription Access Plans | ChatGPT, Claude, Gemini, Grok",
     description:
-      "Compare AI subscription prices, source rules, and buyer-risk notes before verifying the original provider.",
+      "Compare available AI subscription access plans, product availability, prices, and purchase notes before contacting support.",
     siteName: "PriceAI",
     locale: "en_US",
     type: "website",
