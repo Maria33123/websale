@@ -31,53 +31,12 @@ export type ProductCategory = {
 };
 
 export type Product = {
-  /**
-   * 商品唯一 ID，不能重复。
-   * 新增商品时复制一整段，然后改 id。
-   */
   id: string;
-
-  /**
-   * 用于左侧栏分类。
-   * 可选：chatgpt / claude / gemini / grok
-   *
-   * 注意：这个字段只是为了左侧分类，不会显示在商品卡片上。
-   */
   categorySlug: ProductCategory["slug"];
-
-  /**
-   * 第一块：商品名称
-   */
   name: string;
-
-  /**
-   * 第二块：库存状态
-   *
-   * in-stock：有货
-   * limited：库存有限
-   * out-of-stock：暂时缺货
-   */
   availability: Availability;
-
-  /**
-   * 第三块：简短描述
-   *
-   * 例如：
-   * description: "Plus 共享席位 · 美国基准",
-   */
   description: string;
-
-  /**
-   * 弹窗里的商品详情介绍。
-   *
-   * 如果是一整段，直接这样写：
-   * details: "这里填写一整段商品详情。",
-   *
-   * 如果需要换行，推荐这样写：
-   * details: `第一行说明。
-   * 第二行说明。
-   * 第三行说明。`,
-   */
+  price: string;
   details: string;
 };
 
@@ -133,6 +92,7 @@ export const products: Product[] = [
     name: "ChatGPT Plus",
     availability: "in-stock",
     description: "GPT RT Plus 成品号 每日限量特价（欧洲渠道）",
+    price: "$2.5",
     details: `GPT Plus成品号 微软Hotmail邮箱登录 可直接获得原始邮箱（附自建快捷接码平台）
 
 可下载sub2/cpa格式json（带rt+已绑手机号验证）
@@ -147,9 +107,10 @@ export const products: Product[] = [
   {
     id: "chatgpt-team-001",
     categorySlug: "chatgpt",
-    name: "ChatGPT Team",
-    availability: "in-stock",
-    description: "成品 只能反代使用 保证首登，k12渠道（含RT｜CPA+sub2api）",
+    name: "ChatGPT Team/Business",
+    availability: "limited",
+    description: "codex只能反代理使用 保证首登，k12渠道（含RT｜CPA+sub2api）",
+    price: "$2",
     details: `实时测活验证的ChatGpt team帐号（含 refresh_token）
 发货格式：CPA JSON + sub2api 导入 JSON，下载即用，
 质保10分钟内首登
@@ -162,16 +123,29 @@ export const products: Product[] = [
     name: "Claude",
     availability: "out-of-stock",
     description: "暂时无货 · 后续补充",
+    price: "",
     details: "Claude 商品暂时无货，后续补充。",
   },
 
   {
     id: "gemini-001",
     categorySlug: "gemini",
-    name: "Gemini",
-    availability: "out-of-stock",
-    description: "暂时无货 · 后续补充",
-    details: "Gemini 商品暂时无货，后续补充。",
+    name: "Gemini Pro",
+    availability: "limited",
+    description: "Gemini pro一年会员 充值卡密｜充值到您的账号",
+    price: "$3",
+    details: `Gemini Pro 一年订阅 充值卡密｜充值到您的账号
+
+本商品为 Gemini pro 一年订阅服务 充值卡密，可直接开通到您的个人 Google 账号。
+适合希望长期使用 Gemini 高级功能、保留个人账号记录、减少续费频率的用户。
+
+新号老号都可以 已开通会员的不能开 无法覆盖！ 只质保充值成功！只质保充值成功！只质保充值成功！
+
+1.下单付款，获得充值卡密
+2.充值前检查账号 开启两步验证 打开身份验证器 关闭支付资料！
+设置身份验证器的地址： https://myaccount.google.com/two-step-verification/authenticator2步验证的地址：https://myaccount.google.com/signinoptions/twosv
+3.进入 https://1free.qzz.io/ 获取Gemini pro 一年订阅
+`,
   },
 
   {
@@ -180,12 +154,49 @@ export const products: Product[] = [
     name: "Grok",
     availability: "out-of-stock",
     description: "暂时无货 · 后续补充",
+    price: "",
     details: "Grok 商品暂时无货，后续补充。",
   },
 ];
 
+function getAvailabilityWeight(availability: Availability) {
+  const weights: Record<Availability, number> = {
+    "in-stock": 0,
+    limited: 1,
+    "out-of-stock": 2,
+  };
+
+  return weights[availability];
+}
+
 export function getProductsForCategory(categorySlug: ProductCategory["slug"]) {
-  return products.filter((product) => product.categorySlug === categorySlug);
+  return [...products]
+    .filter((product) => product.categorySlug === categorySlug)
+    .sort(
+      (first, second) =>
+        getAvailabilityWeight(first.availability) -
+        getAvailabilityWeight(second.availability),
+    );
+}
+
+export function getBestAvailabilityForCategory(
+  categorySlug: ProductCategory["slug"],
+) {
+  const categoryProducts = getProductsForCategory(categorySlug);
+
+  if (categoryProducts.length === 0) {
+    return "out-of-stock";
+  }
+
+  return categoryProducts[0].availability;
+}
+
+export function getSortedProductCategories() {
+  return [...productCategories].sort(
+    (first, second) =>
+      getAvailabilityWeight(getBestAvailabilityForCategory(first.slug)) -
+      getAvailabilityWeight(getBestAvailabilityForCategory(second.slug)),
+  );
 }
 
 export function getAvailabilityLabel(availability: Availability) {

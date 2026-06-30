@@ -1,12 +1,12 @@
 ﻿"use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ToolLogo } from "@/app/components/tool-logo";
 import {
   getAvailabilityLabel,
   getProductsForCategory,
-  productCategories,
+  getSortedProductCategories,
   type Product,
   type ProductCategory,
 } from "@/app/data/directory";
@@ -102,11 +102,9 @@ function ProductDetailBox({ product }: { product: Product }) {
         商品详情介绍
       </div>
 
-      <div className="space-y-4 text-sm leading-8 text-slate-600 sm:text-base sm:leading-8">
-        {product.details.map((item) => (
-          <p key={item}>{item}</p>
-        ))}
-      </div>
+      <p className="whitespace-pre-line text-sm leading-8 text-slate-600 sm:text-base sm:leading-8">
+        {product.details}
+      </p>
     </div>
   );
 }
@@ -241,7 +239,7 @@ function ProductRow({
       }`}
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="min-w-0 grid gap-3 sm:grid-cols-[180px_90px_minmax(0,1fr)] sm:items-center">
+        <div className="min-w-0 grid gap-2 sm:grid-cols-[150px_70px_minmax(0,1fr)] sm:items-center">
           <h3 className="text-lg font-semibold text-slate-950">
             {product.name}
           </h3>
@@ -259,27 +257,33 @@ function ProductRow({
           </p>
         </div>
 
-        {isOutOfStock ? (
-          <button
-            type="button"
-            disabled
-            className="inline-flex shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-bold text-slate-400"
-          >
-            暂时缺货
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              openDetail();
-            }}
-            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-[#b9e8de] bg-white px-5 py-3 text-sm font-bold text-[#247e70] shadow-sm transition hover:-translate-y-0.5 hover:border-[#55cdb1] hover:shadow-md"
-          >
-            查看详情
-            <ArrowIcon />
-          </button>
-        )}
+        <div className="flex shrink-0 items-center gap-12 pr-6 sm:justify-end">
+  <p className="text-xl font-bold text-slate-950">
+    {product.price}
+  </p>
+
+  {isOutOfStock ? (
+    <button
+      type="button"
+      disabled
+      className="inline-flex shrink-0 cursor-not-allowed items-center justify-center rounded-full border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-bold text-slate-400"
+    >
+      暂时缺货
+    </button>
+  ) : (
+    <button
+      type="button"
+      onClick={(event) => {
+        event.stopPropagation();
+        openDetail();
+      }}
+      className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full border border-[#b9e8de] bg-white px-5 py-3 text-sm font-bold text-[#247e70] shadow-sm transition hover:-translate-y-0.5 hover:border-[#55cdb1] hover:shadow-md"
+    >
+      查看详情
+      <ArrowIcon />
+    </button>
+  )}
+</div>
       </div>
     </article>
   );
@@ -306,13 +310,11 @@ function ProductSection({
 }
 
 export default function Home() {
-  const [activeCategory, setActiveCategory] =
-    useState<ProductCategory["slug"]>("chatgpt");
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const sortedCategories = getSortedProductCategories();
 
-  useEffect(() => {
-    document.documentElement.lang = "zh-CN";
-  }, []);
+  const [activeCategory, setActiveCategory] =
+    useState<ProductCategory["slug"]>(sortedCategories[0]?.slug ?? "chatgpt");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   function handleNavClick(id: ProductCategory["slug"]) {
     setActiveCategory(id);
@@ -345,7 +347,7 @@ export default function Home() {
               </p>
 
               <div className="grid gap-2">
-                {productCategories.map((category) => {
+                {sortedCategories.map((category) => {
                   const isActive = activeCategory === category.slug;
 
                   return (
@@ -373,7 +375,7 @@ export default function Home() {
 
           <div className="min-w-0">
             <div className="grid gap-10">
-              {productCategories.map((category) => (
+              {sortedCategories.map((category) => (
                 <ProductSection
                   key={category.slug}
                   category={category}
