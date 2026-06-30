@@ -151,11 +151,18 @@ export const products: Product[] = [
   {
     id: "grok-001",
     categorySlug: "grok",
-    name: "Grok",
-    availability: "out-of-stock",
-    description: "暂时无货 · 后续补充",
-    price: "",
-    details: "Grok 商品暂时无货，后续补充。",
+    name: "Super Grok",
+    availability: "in-stock",
+    description: "SuperGrok 独享账号 一月会员 质保20天",
+    price: "$12",
+    details:  `登陆成功都要改密码，开2fa（没有做的一律不质保），
+
+不要更换绑定的邮箱，容易掉订阅
+
+不要断开账号与推特的连接，断开不质保
+
+质保政策：没有账号了就按照质保时间内的使用天数退差价，如用了10天，质保时间是20天，那么就是退一半的金额。
+`,
   },
 ];
 

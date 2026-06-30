@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="zh-CN"
       className="h-full scroll-smooth antialiased"
     >
       <body className="min-h-full bg-background text-foreground">
