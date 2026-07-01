@@ -184,18 +184,27 @@ export const productsEn: Product[] = [
     categorySlug: "chatgpt",
     name: "ChatGPT Plus",
     availability: "in-stock",
-    description: "TODO: Fill English short description here",
+    description: "GPT RT Plus Finished Accounts Daily Limited Special Price (European Channel)",
     price: "$2.5",
-    details: englishDetailsPlaceholder,
+    details:  `Ready-to-use ChatGPT Plus account (log in via Microsoft Hotmail); includes access to the original email address (plus a self-hosted quick SMS verification platform).
+
+Downloadable in sub2/cpa JSON format (includes refresh token + linked phone number verification).
+Redemption URL: https://chongzhi.art/
+
+Important Notes: Accounts are sourced via European channels with a one-account-to-one-number binding policy. This product comes with **no warranty**; please purchase with caution.
+Please back up your data.
+Please use up the remaining quota promptly (intended for roughly half a week of use) and ensure session data is backed up in a timely manner. Thank you. `,
   },
   {
     id: "chatgpt-team-001",
     categorySlug: "chatgpt",
     name: "ChatGPT Team/Business",
     availability: "limited",
-    description: "TODO: Fill English short description here",
+    description: "Codex is for reverse proxy use only; warranty covers the initial login; K12 channel.",
     price: "$2",
-    details: englishDetailsPlaceholder,
+    details: `ChatGPT Team account verified via real-time liveness check (includes refresh_token).
+Delivery format: CPA JSON + sub2api import JSON; ready to use immediately upon download.
+Warranty covers the initial login within 10 minutes.`,
   },
   {
     id: "claude-001",
@@ -211,18 +220,35 @@ export const productsEn: Product[] = [
     categorySlug: "gemini",
     name: "Gemini Pro",
     availability: "limited",
-    description: "TODO: Fill English short description here",
+    description: "Gemini Pro 1-Year Membership Top-up Code | Redeem to Your Account",
     price: "$3",
-    details: englishDetailsPlaceholder,
+    details: `Gemini Pro 1-Year Subscription: Top-up Code | Apply to Your Account
+
+This product is a top-up code for a Gemini Pro 1-year subscription, which can be activated directly on your personal Google account.
+It is ideal for users who want long-term access to Gemini's advanced features, wish to retain their account history, and prefer to minimize the frequency of renewals.
+
+Compatible with both new and existing accounts. Cannot be activated on accounts that already have an active membership (it cannot overwrite an existing subscription). Warranty covers successful top-up only.
+
+1. Place your order and make the payment to receive the top-up code.
+2. Before redeeming: Check your account settings. Enable 2-Step Verification, set up an Authenticator app, and close/remove any existing Google Payments profiles.
+   Authenticator setup link: https://myaccount.google.com/two-step-verification/authenticator
+   2-Step Verification link: https://myaccount.google.com/signinoptions/twosv
+3. Visit https://1free.qzz.io/ to redeem the Gemini Pro 1-year subscription.`,
   },
   {
     id: "grok-001",
     categorySlug: "grok",
     name: "Super Grok",
     availability: "in-stock",
-    description: "TODO: Fill English short description here",
+    description: "SuperGrok Exclusive Account – 1-Month Membership – 20-Day Warranty",
     price: "$12",
-    details: englishDetailsPlaceholder,
+    details: `Upon successful login, you must change the password and enable 2FA (failure to do so voids the warranty).
+
+  Do not change the linked email address, as this may cause the subscription to drop.
+
+  Do not disconnect the account from X (formerly Twitter); doing so voids the warranty.
+
+  Warranty Policy: If the account becomes unavailable, a partial refund will be issued based on the number of days used within the warranty period. For example, if the account was used for 10 days out of a 20-day warranty period, half the amount will be refunded.`,
   },
 ];
 
