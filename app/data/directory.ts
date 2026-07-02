@@ -94,7 +94,7 @@ export const productsZh: Product[] = [
     name: "ChatGPT Plus",
     availability: "in-stock",
     description: "GPT RT Plus 成品号 每日限量特价（欧洲渠道）",
-    price: "$2.5",
+    price: "$2",
     details: `GPT Plus成品号 微软Hotmail邮箱登录 可直接获得原始邮箱（附自建快捷接码平台）
 
 可下载sub2/cpa格式json（带rt+已绑手机号验证）
@@ -109,10 +109,25 @@ export const productsZh: Product[] = [
   {
     id: "chatgpt-team-001",
     categorySlug: "chatgpt",
+    name: "ChatGPT Plus",
+    availability: "limited",
+    description: "GPT PLUS 成品号一个月 质保30天",
+    price: "$10",
+    details: `本商品为 GPT PLUS 成品账号，不包Codex登录接码！！！，购买后即可获取完整账号信息，适合需要直接使用 Plus 订阅服务的用户。
+    账号自带 GPT PLUS 订阅，有效期约一个月
+使用 Mail 邮箱 注册，邮箱和账号信息一并发货
+发货后可直接登录使用，适合个人日常体验、学习、办公辅助等场景
+提供 30天质保，使用更安心
+`,
+  },
+
+  {
+    id: "chatgpt-team-001",
+    categorySlug: "chatgpt",
     name: "ChatGPT Team/Business",
     availability: "limited",
     description: "codex只能反代理使用 保证首登，k12渠道（含RT｜CPA+sub2api）",
-    price: "$2",
+    price: "$1",
     details: `实时测活验证的ChatGpt team帐号（含 refresh_token）
 发货格式：CPA JSON + sub2api 导入 JSON，下载即用，
 质保10分钟内首登
@@ -184,8 +199,8 @@ export const productsEn: Product[] = [
     categorySlug: "chatgpt",
     name: "ChatGPT Plus",
     availability: "in-stock",
-    description: "GPT RT Plus Finished Accounts Daily Limited Special Price (European Channel)",
-    price: "$2.5",
+    description: "GPT RT Plus Ready-to-Use Accounts – Special Price",
+    price: "$2",
     details:  `Ready-to-use ChatGPT Plus account (log in via Microsoft Hotmail); includes access to the original email address (plus a self-hosted quick SMS verification platform).
 
 Downloadable in sub2/cpa JSON format (includes refresh token + linked phone number verification).
@@ -200,18 +215,34 @@ Please use up the remaining quota promptly (intended for roughly half a week of 
     categorySlug: "chatgpt",
     name: "ChatGPT Team/Business",
     availability: "limited",
-    description: "Codex is for reverse proxy use only; warranty covers the initial login; K12 channel.",
-    price: "$2",
+    description: "Codex can only be used via a reverse proxy.",
+    price: "$1",
     details: `ChatGPT Team account verified via real-time liveness check (includes refresh_token).
 Delivery format: CPA JSON + sub2api import JSON; ready to use immediately upon download.
 Warranty covers the initial login within 10 minutes.`,
   },
+
+ {
+    id: "chatgpt-team-002",
+    categorySlug: "chatgpt",
+    name: "ChatGPT Plus",
+    availability: "limited",
+    description: "GPT PLUS Ready-made account; 30-day warranty.",
+    price: "$10",
+    details: `This product is a ready-to-use GPT Plus account (note: Codex login/SMS verification is not included). You will receive the full account details immediately after purchase—ideal for users who want instant access to the Plus subscription service.
+The account comes with an active GPT Plus subscription (valid for approximately one month).
+Registered using an email address; both the email and account credentials are provided upon delivery.
+Ready to use immediately after delivery; suitable for personal daily use, learning, office productivity, and more.
+Includes a 30-day warranty for your peace of mind.
+`,
+  },
+
   {
     id: "claude-001",
     categorySlug: "claude",
     name: "Claude",
     availability: "out-of-stock",
-    description: "TODO: Fill English short description here",
+    description: "out-of-stock",
     price: "",
     details: englishDetailsPlaceholder,
   },
@@ -220,7 +251,7 @@ Warranty covers the initial login within 10 minutes.`,
     categorySlug: "gemini",
     name: "Gemini Pro",
     availability: "limited",
-    description: "Gemini Pro 1-Year Membership Top-up Code | Redeem to Your Account",
+    description: "1-Year Membership – Top Up Your Account",
     price: "$3",
     details: `Gemini Pro 1-Year Subscription: Top-up Code | Apply to Your Account
 
@@ -240,9 +271,9 @@ Compatible with both new and existing accounts. Cannot be activated on accounts 
     categorySlug: "grok",
     name: "Super Grok",
     availability: "in-stock",
-    description: "SuperGrok Exclusive Account – 1-Month Membership – 20-Day Warranty",
+    description: "Exclusive account access for one month.",
     price: "$12",
-    details: `Upon successful login, you must change the password and enable 2FA (failure to do so voids the warranty).
+    details: `20-day warranty,Upon successful login, you must change the password and enable 2FA (failure to do so voids the warranty).
 
   Do not change the linked email address, as this may cause the subscription to drop.
 

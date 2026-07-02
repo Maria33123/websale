@@ -1,5 +1,5 @@
 "use client";
-
+import { ContactSupport } from "@/app/components/contact-support";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -84,7 +84,7 @@ function TopNoticeBox() {
         </h1>
 
         <p className="mx-auto mt-6 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
-          购买前请务必仔细阅读商品详情、使用说明及注意事项，并确认该商品符合你的使用需求。
+          由于数字产品的特殊性，请在购买前联系客服，确认了解产品使用方法后再进行订购。
         </p>
 
         <p className="mx-auto mt-3 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
@@ -337,6 +337,7 @@ export default function ZhHome() {
         </div>
 
         <TopNoticeBox />
+<ContactSupport lang="zh" />
 
         <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-8 lg:self-start">

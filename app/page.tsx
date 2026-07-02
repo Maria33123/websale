@@ -1,5 +1,5 @@
 ﻿"use client";
-
+import { ContactSupport } from "@/app/components/contact-support";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -82,12 +82,12 @@ function TopNoticeBox() {
         <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
           Please Read Before Purchase
         </h1>
-
-        <p className="mx-auto mt-6 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
-          Please read the product details, usage instructions, and important
-          notes carefully before ordering, and make sure the product fits your
-          needs.
+       <p className="mx-auto mt-3 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
+          Due to the nature of digital products, please contact support before
+          purchase and order only after confirming that you understand how to
+          use the product.
         </p>
+  
 
         <p className="mx-auto mt-3 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
           After placing an order, you are considered to have understood and
@@ -95,11 +95,7 @@ function TopNoticeBox() {
           policy.
         </p>
 
-        <p className="mx-auto mt-3 max-w-4xl text-base leading-8 text-slate-600 sm:text-lg">
-          Due to the nature of digital products, please contact support before
-          purchase and order only after confirming that you understand how to
-          use the product.
-        </p>
+        
       </div>
     </section>
   );
@@ -351,6 +347,7 @@ export default function Home() {
         </div>
 
         <TopNoticeBox />
+<ContactSupport />
 
         <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-8 lg:self-start">
